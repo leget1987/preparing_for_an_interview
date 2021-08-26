@@ -1,19 +1,20 @@
-# 3. Разработать генератор случайных чисел. В функцию передавать начальное и конечное число генерации (нуль
-# необходимо исключить). Заполнить этими данными список и словарь. Ключи словаря должны создаваться по шаблону:
-# “elem_<номер_элемента>”. Вывести содержимое созданных списка и словаря.
+# 3. Усовершенствовать родительский класс таким образом, чтобы получить доступ к защищенным переменным.
+# Результат выполнения заданий 1 и 2 должен быть идентичным.
 
 
-import random
+class ItemDiscount:
+    def __init__(self, name, price):
+        self.__name = name
+        self.__price = price
+
+    def __str__(self):
+        return f"{self._ItemDiscount__name}: {self._ItemDiscount__price}P"
 
 
-def random_number(start, finish):
-    elem_lst = []
-    elem_dir = {}
-    for _ in range(10):
-        rnd = int((finish - start) * random.random() + start)
-        elem_lst.append(rnd)
-        elem_dir.update({'elem_{}'.format(rnd): rnd})
-    return elem_lst, elem_dir
+class ItemDiscountReport(ItemDiscount):
+    def get_parent_data(self):
+        print(self)
 
 
-print(random_number(1, 71))
+child = ItemDiscountReport('iphone', 70000)
+child.get_parent_data()
