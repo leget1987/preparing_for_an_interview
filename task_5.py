@@ -1,26 +1,35 @@
-# 5. Усовершенствовать программу «Банковский депозит».
-# Третьим аргументом в функцию должна передаваться фиксированная ежемесячная сумма пополнения вклада.
-# Необходимо в главной функции реализовать вложенную функцию подсчета процентов для пополняемой суммы.
-# Примем, что клиент вносит средства в последний день каждого месяца, кроме первого и последнего.
-# Например, при сроке вклада в 6 месяцев пополнение происходит в течение 4 месяцев.
-# Вложенная функция возвращает сумму дополнительно внесенных средств (с процентами),
-# а главная функция — общую сумму по вкладу на конец периода.
-from task_4 import get_percent
+# 5. Реализовать расчет цены товара со скидкой.
+# Величина скидки должна передаваться в качестве аргумента в дочерний класс.
+# Выполнить перегрузку методов конструктора дочернего класса
+# (метод init, в который должна передаваться переменная — скидка), и перегрузку метода str дочернего класса.
+# В этом методе должна пересчитываться цена и возвращаться результат — цена товара со скидкой.
+# Чтобы все работало корректно, не забудьте инициализировать дочерний и родительский классы
+# (вторая и третья строка после объявления дочернего класса).
+
+class ItemDiscount:
+    def __init__(self, name, price):
+        self.__name = name
+        self.__price = price
+
+    def __str__(self):
+        return f"{self._ItemDiscount__name}: {self._ItemDiscount__price}P"
 
 
-def upgrade_deposit(amount, months, charge=0):
-    percent = get_percent(amount, months)
-    if not percent:
-        print('Нет подходящего тарифа')
+class ItemDiscountReport(ItemDiscount):
+    def __init__(self, name, price, discount):
+        super().__init__(name, price)
+        self.discount = discount
 
-    total = amount
-    for month in range(months):
-        profit = total * percent / 100 / 12
-        total += profit
-        if month != 0 and month != months - 1:
-            total += charge + charge * percent / 100 / 12
+    def set_price(self, price):
+        self._ItemDiscount__price = price
 
-    print(round(total, 2))
+    def __str__(self):
+        return f"{self._ItemDiscount__name}: " \
+               f"{self._ItemDiscount__price - self._ItemDiscount__price * self.discount / 100}"
+
+    def get_parent_data(self):
+        print(self)
 
 
-upgrade_deposit(20000, 24, 100)
+child = ItemDiscountReport('iphone', 70000, 5)
+child.get_parent_data()
