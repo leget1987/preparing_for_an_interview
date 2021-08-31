@@ -1,25 +1,23 @@
-# 2. Дополнить следующую функцию недостающим кодом:
-# def print_directory_contents(sPath):
-# """
-# Функция принимает имя каталога и распечатывает его содержимое
-# в виде «путь и имя файла», а также любые другие
-# файлы во вложенных каталогах.
-#
-# Эта функция подобна os.walk. Использовать функцию os.walk
-# нельзя. Данная задача показывает ваше умение работать с
-# вложенными структурами.
-# """
+# 2. Написать программу, которая запрашивает у пользователя ввод числа.
+# На введенное число она отвечает сообщением, целое оно или дробное.
+# Если дробное — необходимо далее выполнить сравнение чисел до и после запятой.
+# Если они совпадают, программа должна возвращать значение True, иначе False.
 
-import os
-
-
-def print_directory_contents(sPath):
-    for child in os.listdir(sPath):
-        child_path = os.path.join(sPath, child)
-        if os.path.isdir(child_path):
-            print_directory_contents(child_path)
+def check_number(number):
+    try:
+        result = float(number)
+        if int(number) == result:
+            print(f'{number} - это целое число')
         else:
-            print(child_path)
+            print(f'{number} - это дробное число')
+            whole, fractional = number.split('.')
+            if whole == fractional:
+                return True
+            else:
+                return False
+    except ValueError:
+        print('Ввели не число')
 
 
-print_directory_contents(os.getcwd())
+user_number = input('Введите число: ')
+print(check_number(user_number))
