@@ -1,19 +1,11 @@
-# 3. Разработать генератор случайных чисел. В функцию передавать начальное и конечное число генерации (нуль
-# необходимо исключить). Заполнить этими данными список и словарь. Ключи словаря должны создаваться по шаблону:
-# “elem_<номер_элемента>”. Вывести содержимое созданных списка и словаря.
+# 3. Создать два списка с различным количеством элементов. В первом должны быть записаны ключи, во втором — значения.
+# Необходимо написать функцию, создающую из данных ключей и значений словарь. Если ключу не хватает значения,
+# в словаре для него должно сохраняться значение None. Значения, которым не хватило ключей, необходимо отбросить.
 
 
-import random
+def set_dictionary(keys, values):
+    values.extend([None] * (len(keys) - len(values)))
+    return {key: value for (key, value) in zip(keys, values)}
 
 
-def random_number(start, finish):
-    elem_lst = []
-    elem_dir = {}
-    for _ in range(10):
-        rnd = int((finish - start) * random.random() + start)
-        elem_lst.append(rnd)
-        elem_dir.update({'elem_{}'.format(rnd): rnd})
-    return elem_lst, elem_dir
-
-
-print(random_number(1, 71))
+print(set_dictionary([3, 7, 45, 76], [44, 66, 1, 3, 5]))
